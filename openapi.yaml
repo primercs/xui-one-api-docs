@@ -1303,6 +1303,535 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 
+  /?action=activity_logs:
+    get:
+      summary: Get Activity Logs
+      description: |
+        Retrieves activity logs showing admin and user actions in the panel.
+        
+        **Purpose:** Monitor all administrative actions and changes.
+        
+        ---
+        
+        **Example Request:**
+        ```bash
+        curl "http://your-server.com/cSbuFLhp/?api_key=8D3135D30437F86EAE2FA4A2A8345000&action=activity_logs"
+        ```
+        
+        **Use Cases:**
+        - ✅ Audit admin actions
+        - ✅ Track changes to configurations
+        - ✅ Monitor user behavior
+        - ✅ Security auditing
+        - ✅ Troubleshooting issues
+      operationId: activityLogs
+      tags:
+        - Logs & Events
+      parameters:
+        - $ref: '#/components/parameters/ApiKey'
+        - name: action
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [activity_logs]
+        - name: limit
+          in: query
+          description: Number of records to return
+          schema:
+            type: integer
+            default: 100
+          example: 50
+        - name: offset
+          in: query
+          description: Offset for pagination
+          schema:
+            type: integer
+            default: 0
+          example: 0
+      responses:
+        '200':
+          description: Activity logs retrieved successfully
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /?action=live_connections:
+    get:
+      summary: Get Live Connections
+      description: |
+        Retrieves list of currently active connections to your streams.
+        
+        **Purpose:** Monitor real-time viewer activity.
+        
+        ---
+        
+        **Example Request:**
+        ```bash
+        curl "http://your-server.com/cSbuFLhp/?api_key=8D3135D30437F86EAE2FA4A2A8345000&action=live_connections"
+        ```
+        
+        **Use Cases:**
+        - ✅ Monitor active viewers
+        - ✅ Track concurrent connections
+        - ✅ Detect connection sharing
+        - ✅ View viewer locations
+        - ✅ Check stream load
+      operationId: liveConnections
+      tags:
+        - Logs & Events
+      parameters:
+        - $ref: '#/components/parameters/ApiKey'
+        - name: action
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [live_connections]
+      responses:
+        '200':
+          description: Live connections retrieved successfully
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /?action=credit_logs:
+    get:
+      summary: Get Credit Transaction Logs
+      description: |
+        Retrieves credit transaction history for resellers.
+        
+        **Purpose:** Track credit additions, deductions, and transfers.
+        
+        ---
+        
+        **Example Request:**
+        ```bash
+        curl "http://your-server.com/cSbuFLhp/?api_key=8D3135D30437F86EAE2FA4A2A8345000&action=credit_logs"
+        ```
+        
+        **Use Cases:**
+        - ✅ Audit credit transactions
+        - ✅ Track reseller spending
+        - ✅ Monitor credit transfers
+        - ✅ Financial reporting
+      operationId: creditLogs
+      tags:
+        - Logs & Events
+      parameters:
+        - $ref: '#/components/parameters/ApiKey'
+        - name: action
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [credit_logs]
+        - name: user_id
+          in: query
+          description: Filter by specific user ID
+          schema:
+            type: integer
+          example: 123
+      responses:
+        '200':
+          description: Credit logs retrieved successfully
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /?action=client_logs:
+    get:
+      summary: Get Client Connection Logs
+      description: |
+        Retrieves client connection attempt logs.
+        
+        **Purpose:** Monitor client connection history and patterns.
+        
+        ---
+        
+        **Example Request:**
+        ```bash
+        curl "http://your-server.com/cSbuFLhp/?api_key=8D3135D30437F86EAE2FA4A2A8345000&action=client_logs"
+        ```
+        
+        **Use Cases:**
+        - ✅ Track connection attempts
+        - ✅ Detect suspicious activity
+        - ✅ Monitor client devices
+        - ✅ View connection history
+      operationId: clientLogs
+      tags:
+        - Logs & Events
+      parameters:
+        - $ref: '#/components/parameters/ApiKey'
+        - name: action
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [client_logs]
+        - name: line_id
+          in: query
+          description: Filter by specific line ID
+          schema:
+            type: integer
+          example: 123
+      responses:
+        '200':
+          description: Client logs retrieved successfully
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /?action=user_logs:
+    get:
+      summary: Get User Activity Logs
+      description: |
+        Retrieves logs of user actions in the panel.
+        
+        **Purpose:** Monitor user activity and changes.
+        
+        ---
+        
+        **Example Request:**
+        ```bash
+        curl "http://your-server.com/cSbuFLhp/?api_key=8D3135D30437F86EAE2FA4A2A8345000&action=user_logs"
+        ```
+        
+        **Use Cases:**
+        - ✅ Track user actions
+        - ✅ Audit panel changes
+        - ✅ Monitor reseller activity
+        - ✅ Security monitoring
+      operationId: userLogs
+      tags:
+        - Logs & Events
+      parameters:
+        - $ref: '#/components/parameters/ApiKey'
+        - name: action
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [user_logs]
+        - name: user_id
+          in: query
+          description: Filter by specific user ID
+          schema:
+            type: integer
+          example: 123
+      responses:
+        '200':
+          description: User logs retrieved successfully
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /?action=stream_errors:
+    get:
+      summary: Get Stream Error Logs
+      description: |
+        Retrieves stream error logs and failure information.
+        
+        **Purpose:** Monitor stream health and troubleshoot issues.
+        
+        ---
+        
+        **Example Request:**
+        ```bash
+        curl "http://your-server.com/cSbuFLhp/?api_key=8D3135D30437F86EAE2FA4A2A8345000&action=stream_errors"
+        ```
+        
+        **Use Cases:**
+        - ✅ Troubleshoot stream issues
+        - ✅ Monitor stream reliability
+        - ✅ Identify problematic sources
+        - ✅ Track downtime
+      operationId: streamErrors
+      tags:
+        - Logs & Events
+      parameters:
+        - $ref: '#/components/parameters/ApiKey'
+        - name: action
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [stream_errors]
+        - name: stream_id
+          in: query
+          description: Filter by specific stream ID
+          schema:
+            type: integer
+          example: 456
+      responses:
+        '200':
+          description: Stream errors retrieved successfully
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /?action=watch_output:
+    get:
+      summary: Watch Stream Output
+      description: |
+        Monitor live stream output and encoding details.
+        
+        **Purpose:** Real-time stream monitoring and diagnostics.
+        
+        ---
+        
+        **Example Request:**
+        ```bash
+        curl "http://your-server.com/cSbuFLhp/?api_key=8D3135D30437F86EAE2FA4A2A8345000&action=watch_output&stream_id=456"
+        ```
+        
+        **Use Cases:**
+        - ✅ Monitor encoding quality
+        - ✅ Check bitrate and resolution
+        - ✅ Diagnose playback issues
+        - ✅ Verify stream settings
+      operationId: watchOutput
+      tags:
+        - Logs & Events
+      parameters:
+        - $ref: '#/components/parameters/ApiKey'
+        - name: action
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [watch_output]
+        - name: stream_id
+          in: query
+          required: true
+          description: Stream ID to monitor
+          schema:
+            type: integer
+          example: 456
+      responses:
+        '200':
+          description: Stream output data retrieved successfully
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /?action=system_logs:
+    get:
+      summary: Get System Logs
+      description: |
+        Retrieves system-level logs and events.
+        
+        **Purpose:** Monitor system health and errors.
+        
+        ---
+        
+        **Example Request:**
+        ```bash
+        curl "http://your-server.com/cSbuFLhp/?api_key=8D3135D30437F86EAE2FA4A2A8345000&action=system_logs"
+        ```
+        
+        **Use Cases:**
+        - ✅ Monitor system health
+        - ✅ Troubleshoot errors
+        - ✅ Track system events
+        - ✅ Performance monitoring
+      operationId: systemLogs
+      tags:
+        - Logs & Events
+      parameters:
+        - $ref: '#/components/parameters/ApiKey'
+        - name: action
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [system_logs]
+        - name: limit
+          in: query
+          description: Number of records to return
+          schema:
+            type: integer
+            default: 100
+          example: 50
+      responses:
+        '200':
+          description: System logs retrieved successfully
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /?action=login_logs:
+    get:
+      summary: Get Login Attempt Logs
+      description: |
+        Retrieves logs of login attempts to the panel.
+        
+        **Purpose:** Security monitoring and access auditing.
+        
+        ---
+        
+        **Example Request:**
+        ```bash
+        curl "http://your-server.com/cSbuFLhp/?api_key=8D3135D30437F86EAE2FA4A2A8345000&action=login_logs"
+        ```
+        
+        **Use Cases:**
+        - ✅ Monitor login attempts
+        - ✅ Detect brute force attacks
+        - ✅ Track successful logins
+        - ✅ Security auditing
+      operationId: loginLogs
+      tags:
+        - Logs & Events
+      parameters:
+        - $ref: '#/components/parameters/ApiKey'
+        - name: action
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [login_logs]
+        - name: success
+          in: query
+          description: Filter by success status (1 = successful, 0 = failed)
+          schema:
+            type: integer
+            enum: [0, 1]
+          example: 0
+      responses:
+        '200':
+          description: Login logs retrieved successfully
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /?action=restream_logs:
+    get:
+      summary: Get Restream Activity Logs
+      description: |
+        Retrieves logs of restreaming activity.
+        
+        **Purpose:** Monitor reseller restreaming operations.
+        
+        ---
+        
+        **Example Request:**
+        ```bash
+        curl "http://your-server.com/cSbuFLhp/?api_key=8D3135D30437F86EAE2FA4A2A8345000&action=restream_logs"
+        ```
+        
+        **Use Cases:**
+        - ✅ Track restream usage
+        - ✅ Monitor reseller activity
+        - ✅ Audit stream distribution
+        - ✅ Performance monitoring
+      operationId: restreamLogs
+      tags:
+        - Logs & Events
+      parameters:
+        - $ref: '#/components/parameters/ApiKey'
+        - name: action
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [restream_logs]
+      responses:
+        '200':
+          description: Restream logs retrieved successfully
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /?action=mag_events:
+    get:
+      summary: Get MAG Device Events
+      description: |
+        Retrieves event logs for MAG devices.
+        
+        **Purpose:** Monitor MAG device activity and events.
+        
+        ---
+        
+        **Example Request:**
+        ```bash
+        curl "http://your-server.com/cSbuFLhp/?api_key=8D3135D30437F86EAE2FA4A2A8345000&action=mag_events"
+        ```
+        
+        **Use Cases:**
+        - ✅ Track MAG device usage
+        - ✅ Monitor device events
+        - ✅ Troubleshoot MAG issues
+        - ✅ View device activity
+      operationId: magEvents
+      tags:
+        - Logs & Events
+      parameters:
+        - $ref: '#/components/parameters/ApiKey'
+        - name: action
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [mag_events]
+        - name: mag_id
+          in: query
+          description: Filter by specific MAG device ID
+          schema:
+            type: integer
+          example: 202
+      responses:
+        '200':
+          description: MAG events retrieved successfully
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
 components:
   securitySchemes:
     ApiKeyAuth:
