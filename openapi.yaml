@@ -17,14 +17,22 @@ info:
     ### 🔗 Base URL Pattern
     
     ```
-    http://YOUR_SERVER/<Access-Code>/?api_key=<API-KEY>&action=ACTION
+    {protocol}://YOUR_SERVER:{port}/<Access-Code>/?api_key=<API-KEY>&action=ACTION
     ```
     
-    **Replace:**
-    - `YOUR_SERVER` → Your server domain/IP
+    **Customize:**
+    - `{protocol}` → http or https
+    - `YOUR_SERVER` → Your server domain/IP (e.g., 192.168.1.100)
+    - `{port}` → Your port (80, 8000, 9000, or custom)
     - `<Access-Code>` → Your access code (e.g., `cSbuFLhp`)
     - `<API-KEY>` → Your API key
     - `ACTION` → API action name (e.g., `get_lines`)
+    
+    **Common Ports:**
+    - `80` - HTTP (default)
+    - `8000` - HTTP (alternative)
+    - `9000` - HTTPS (recommended)
+    - Custom - Any port you configured
     
     ---
     
@@ -104,27 +112,21 @@ info:
     url: https://xui.one
 
 servers:
-  - url: http://{server}:{port}/{accessCode}
-    description: XUI.ONE API Server (HTTP)
+  - url: '{protocol}://{server}:{port}/{accessCode}'
+    description: XUI.ONE API Server (Customizable)
     variables:
+      protocol:
+        default: http
+        description: Protocol (http or https)
+        enum:
+          - http
+          - https
       server:
         default: your-server.com
-        description: Your XUI.ONE server IP or domain
+        description: Your XUI.ONE server IP or domain (e.g., 192.168.1.100 or panel.yourdomain.com)
       port:
         default: '80'
-        description: API port
-        enum:
-          - '80'
-          - '8000'
-      accessCode:
-        default: cSbuFLhp
-        description: Your unique access code for API access
-  - url: https://{server}:9000/{accessCode}
-    description: XUI.ONE API Server (HTTPS - Recommended)
-    variables:
-      server:
-        default: your-server.com
-        description: Your XUI.ONE server IP or domain
+        description: API port (80 for HTTP, 9000 for HTTPS, or custom port)
       accessCode:
         default: cSbuFLhp
         description: Your unique access code for API access
