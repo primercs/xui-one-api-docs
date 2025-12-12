@@ -8,7 +8,7 @@
 
 **Complete API Documentation for XUI.ONE IPTV Panel Administration**
 
-[View Documentation](#documentation) • [Quick Start](#quick-start) • [Examples](#examples) • [Contributing](#contributing)
+[View Documentation](#documentation) • [Quick Start](#quick-start) • [Examples](#examples) • [Contributing](#[contributing](https://github.com/worldofiptvcom/xui-one-api-docs/blob/main/CONTRIBUTING.md))
 
 </div>
 
