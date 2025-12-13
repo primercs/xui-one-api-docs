@@ -497,6 +497,22 @@
                 <strong>Note:</strong> This documentation is for XUI.ONE v1.5.13+. Replace placeholder values with your actual credentials.
             </div>
 
+            <div class="alert alert-info" style="border-left-color: #e67e22;">
+                <span class="alert-icon">⚠️</span>
+                <strong>CORS Notice - "Try it out" Feature:</strong> When testing API endpoints directly in Swagger UI using the "Try it out" button, you may encounter a <code class="code-inline">Failed to fetch</code> error. This is <strong>NORMAL and EXPECTED</strong> browser behavior due to CORS (Cross-Origin Resource Security) policy.
+                <br><br>
+                <strong>Why this happens:</strong> Your browser blocks requests from this documentation site (GitHub Pages) to your XUI.ONE server for security reasons.
+                <br><br>
+                <strong>Solutions for testing:</strong>
+                <ul class="list-styled" style="margin-top: 0.5rem;">
+                    <li>✅ Use cURL commands (copy from Swagger UI examples)</li>
+                    <li>✅ Use Postman, Insomnia, or similar API tools</li>
+                    <li>✅ Use the code examples (Python, PHP, JavaScript)</li>
+                    <li>⚙️ Temporarily enable CORS on your server (not recommended for production)</li>
+                </ul>
+                <strong>Important:</strong> This CORS error does NOT mean the documentation or API is broken. It's a browser security feature protecting your server.
+            </div>
+
             <h2 class="docs-title">XUI.ONE Admin API Documentation</h2>
             <p class="docs-subtitle">Comprehensive API documentation for XUI.ONE IPTV Panel Administration</p>
 
