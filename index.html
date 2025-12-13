@@ -1,180 +1,724 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="XUI.ONE Admin API Documentation - Interactive Swagger UI" />
-  <title>XUI.ONE Admin API Documentation</title>
-  <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui.css" />
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    }
-    
-    .topbar {
-      display: none !important;
-    }
-    
-    .swagger-ui .info {
-      margin: 50px 0;
-    }
-    
-    .swagger-ui .info .title {
-      font-size: 36px;
-      color: #3b4151;
-    }
-    
-    .custom-header {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      padding: 30px;
-      text-align: center;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
-    
-    .custom-header h1 {
-      margin: 0;
-      font-size: 42px;
-      font-weight: 700;
-    }
-    
-    .custom-header p {
-      margin: 10px 0 0;
-      font-size: 18px;
-      opacity: 0.9;
-    }
-    
-    .custom-links {
-      margin-top: 20px;
-    }
-    
-    .custom-links a {
-      color: white;
-      text-decoration: none;
-      margin: 0 15px;
-      padding: 8px 20px;
-      border: 2px solid white;
-      border-radius: 5px;
-      transition: all 0.3s;
-      display: inline-block;
-    }
-    
-    .custom-links a:hover {
-      background: white;
-      color: #667eea;
-    }
-    
-    .info-banner {
-      background: #fff3cd;
-      border: 1px solid #ffc107;
-      border-radius: 5px;
-      padding: 15px;
-      margin: 20px auto;
-      max-width: 1200px;
-      text-align: center;
-    }
-    
-    .info-banner strong {
-      color: #856404;
-    }
-    
-    #swagger-ui {
-      max-width: 1460px;
-      margin: 0 auto;
-    }
-    
-    .loading-message {
-      text-align: center;
-      padding: 40px;
-      font-size: 18px;
-      color: #666;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XUI.ONE Admin API Documentation</title>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui.css">
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/swagger-api/swagger-ui/master/dist/favicon-32x32.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --bg-header: #2c3e50;
+            --text-primary: #2c3e50;
+            --text-secondary: #7f8c8d;
+            --text-header: #ffffff;
+            --border-color: #e1e4e8;
+            --accent-color: #3498db;
+            --accent-hover: #2980b9;
+            --code-bg: #f6f8fa;
+            --shadow: 0 2px 8px rgba(0,0,0,0.1);
+            --switch-bg: #ccc;
+            --switch-checked: #2196F3;
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #1e1e1e;
+            --bg-secondary: #2d2d2d;
+            --bg-header: #1a1a1a;
+            --text-primary: #e0e0e0;
+            --text-secondary: #b0b0b0;
+            --text-header: #ffffff;
+            --border-color: #3a3a3a;
+            --accent-color: #4a9eff;
+            --accent-hover: #357abd;
+            --code-bg: #2d2d2d;
+            --shadow: 0 2px 8px rgba(0,0,0,0.3);
+            --switch-bg: #555;
+            --switch-checked: #4a9eff;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            line-height: 1.6;
+        }
+
+        /* Header Styles */
+        .header {
+            background: var(--bg-header);
+            color: var(--text-header);
+            padding: 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .header-title h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .version-badges {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge-version {
+            background: #27ae60;
+            color: white;
+        }
+
+        .badge-oas {
+            background: #f39c12;
+            color: white;
+        }
+
+        /* Theme Toggle Switch */
+        .theme-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .theme-switch-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .theme-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .theme-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--switch-bg);
+            transition: 0.4s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--switch-checked);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        .theme-icon {
+            font-size: 1.2rem;
+        }
+
+        /* Navigation Tabs */
+        .nav-tabs {
+            background: var(--bg-header);
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .nav-tabs-container {
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .nav-tab {
+            padding: 1rem 2rem;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            color: rgba(255,255,255,0.7);
+            font-size: 1rem;
+            font-weight: 500;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-tab:hover {
+            color: rgba(255,255,255,0.9);
+            background: rgba(255,255,255,0.05);
+        }
+
+        .nav-tab.active {
+            color: white;
+            border-bottom-color: var(--accent-color);
+        }
+
+        .nav-tab-icon {
+            font-size: 1.2rem;
+        }
+
+        /* Content Sections */
+        .content-section {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* General Documentation Styles */
+        .docs-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .alert {
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            border-left: 4px solid;
+            background: var(--bg-secondary);
+        }
+
+        .alert-info {
+            border-left-color: #3498db;
+        }
+
+        .alert-icon {
+            margin-right: 0.5rem;
+        }
+
+        .docs-title {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .docs-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section-icon {
+            font-size: 1.5rem;
+        }
+
+        .section-content {
+            background: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .code-block {
+            background: var(--code-bg);
+            padding: 1rem;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            margin: 1rem 0;
+        }
+
+        .code-inline {
+            background: var(--code-bg);
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            border: 1px solid var(--border-color);
+        }
+
+        .list-styled {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .list-styled li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .list-styled li:before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .highlight {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        .link {
+            color: var(--accent-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .link:hover {
+            color: var(--accent-hover);
+            text-decoration: underline;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: var(--accent-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        /* Swagger UI Container */
+        .swagger-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Swagger UI Dark Theme */
+        [data-theme="dark"] .swagger-ui {
+            filter: invert(0.88) hue-rotate(180deg);
+        }
+
+        [data-theme="dark"] .swagger-ui .microlight {
+            filter: invert(1) hue-rotate(180deg);
+        }
+
+        [data-theme="dark"] .swagger-ui img {
+            filter: invert(1) hue-rotate(180deg);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-top {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+
+            .nav-tabs-container {
+                overflow-x: auto;
+            }
+
+            .nav-tab {
+                padding: 1rem;
+                white-space: nowrap;
+            }
+
+            .docs-container, .swagger-container {
+                padding: 1rem;
+            }
+
+            .docs-title {
+                font-size: 2rem;
+            }
+
+            .btn-group {
+                flex-direction: column;
+            }
+        }
+
+        /* Quick Links Grid */
+        .quick-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .quick-link-card {
+            background: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .quick-link-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow);
+            border-color: var(--accent-color);
+        }
+
+        .quick-link-card h3 {
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .quick-link-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+    </style>
 </head>
 <body>
-  <div class="custom-header">
-    <h1>🎬 XUI.ONE Admin API</h1>
-    <p>Complete API Documentation for IPTV Panel Administration</p>
-    <div class="custom-links">
-      <a href="https://github.com/worldofiptvcom/xui-one-api-docs" target="_blank">📖 GitHub</a>
-      <a href="https://www.worldofiptv.com" target="_blank">💬 Community</a>
-      <a href="https://xui.one" target="_blank">🌐 XUI.ONE</a>
+    <!-- Header -->
+    <div class="header">
+        <div class="header-top">
+            <div class="header-title">
+                <h1>XUI.ONE Admin API</h1>
+                <div class="version-badges">
+                    <span class="badge badge-version">v1.5.13</span>
+                    <span class="badge badge-oas">OAS 3.0</span>
+                </div>
+            </div>
+            
+            <div class="theme-controls">
+                <div class="theme-switch-wrapper">
+                    <span class="theme-icon">☀️</span>
+                    <label class="theme-switch">
+                        <input type="checkbox" id="theme-toggle">
+                        <span class="slider"></span>
+                    </label>
+                    <span class="theme-icon">🌙</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="nav-tabs">
+            <div class="nav-tabs-container">
+                <button class="nav-tab active" onclick="switchTab('docs')">
+                    <span class="nav-tab-icon">📚</span>
+                    General Documentation
+                </button>
+                <button class="nav-tab" onclick="switchTab('swagger')">
+                    <span class="nav-tab-icon">🔧</span>
+                    Swagger API
+                </button>
+            </div>
+        </div>
     </div>
-  </div>
-  
-  <div class="info-banner">
-    <strong>📢 Note:</strong> This documentation is for XUI.ONE v1.5.13+. 
-    Replace placeholder values (<code>your-server.com</code>, <code>&lt;API-KEY&gt;</code>, <code>&lt;Access-Code&gt;</code>) with your actual credentials.
-  </div>
-  
-  <div id="swagger-ui">
-    <div class="loading-message">⏳ Loading API Documentation...</div>
-  </div>
-  
-  <footer style="text-align: center; padding: 40px 20px; background: #fafafa; margin-top: 50px; border-top: 1px solid #e5e5e5;">
-    <p style="color: #666; margin: 0;">
-      <strong>XUI.ONE Admin API Documentation</strong>
-    </p>
-    <p style="color: #999; margin: 10px 0 0; font-size: 14px;">
-      Made with ❤️ by <a href="https://www.worldofiptv.com" target="_blank" style="color: #667eea; text-decoration: none;">World of IPTV</a>
-    </p>
-    <p style="color: #999; margin: 10px 0 0; font-size: 12px;">
-      Documentation licensed under MIT | XUI.ONE software is proprietary
-    </p>
-  </footer>
-  
-  <script src="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui-bundle.js" crossorigin></script>
-  <script src="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui-standalone-preset.js" crossorigin></script>
-  <script>
-    window.onload = function() {
-      try {
-        window.ui = SwaggerUIBundle({
-          url: 'openapi.yaml',
-          dom_id: '#swagger-ui',
-          deepLinking: true,
-          presets: [
-            SwaggerUIBundle.presets.apis,
-            SwaggerUIStandalonePreset
-          ],
-          plugins: [
-            SwaggerUIBundle.plugins.DownloadUrl
-          ],
-          layout: "StandaloneLayout",
-          defaultModelsExpandDepth: 1,
-          defaultModelExpandDepth: 1,
-          docExpansion: 'list',
-          filter: true,
-          showRequestHeaders: true,
-          tryItOutEnabled: true,
-          requestSnippetsEnabled: true,
-          supportedSubmitMethods: ['get', 'post', 'put', 'delete', 'patch'],
-          validatorUrl: null,
-          onComplete: function() {
-            console.log('✅ Swagger UI loaded successfully!');
-          },
-          onFailure: function(error) {
-            console.error('❌ Swagger UI failed to load:', error);
-            document.getElementById('swagger-ui').innerHTML = 
-              '<div style="padding: 40px; text-align: center; color: #d32f2f;">' +
-              '<h2>⚠️ Failed to Load API Documentation</h2>' +
-              '<p>Error: ' + error.message + '</p>' +
-              '<p>Please check the browser console for more details.</p>' +
-              '<p><a href="openapi.yaml" target="_blank">View raw OpenAPI spec</a></p>' +
-              '</div>';
-          }
+
+    <!-- General Documentation Section -->
+    <div id="docs-section" class="content-section active">
+        <div class="docs-container">
+            <div class="alert alert-info">
+                <span class="alert-icon">📢</span>
+                <strong>Note:</strong> This documentation is for XUI.ONE v1.5.13+. Replace placeholder values with your actual credentials.
+            </div>
+
+            <h2 class="docs-title">XUI.ONE Admin API Documentation</h2>
+            <p class="docs-subtitle">Comprehensive API documentation for XUI.ONE IPTV Panel Administration</p>
+
+            <!-- Quick Start -->
+            <div class="section">
+                <h3 class="section-title">
+                    <span class="section-icon">🎯</span>
+                    Quick Start
+                </h3>
+                <div class="section-content">
+                    <p>This API provides programmatic access to manage your IPTV platform with <span class="highlight">111 endpoints</span> for:</p>
+                    <ul class="list-styled">
+                        <li>📺 Manage subscriptions (Lines, MAG, Enigma2 devices)</li>
+                        <li>🎬 Control streams, channels, movies, and series</li>
+                        <li>📊 Monitor connections and activity logs</li>
+                        <li>⚙️ Configure servers and load balancers</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Base URL Pattern -->
+            <div class="section">
+                <h3 class="section-title">
+                    <span class="section-icon">🔗</span>
+                    Base URL Pattern
+                </h3>
+                <div class="section-content">
+                    <div class="code-block">
+{protocol}://YOUR_SERVER:{port}/&lt;Access-Code&gt;/?api_key=&lt;API-KEY&gt;&action=ACTION
+                    </div>
+                    <p><strong>Customize:</strong></p>
+                    <ul class="list-styled">
+                        <li><code class="code-inline">{protocol}</code> → http or https</li>
+                        <li><code class="code-inline">YOUR_SERVER</code> → Your server domain/IP (e.g., 192.168.1.100)</li>
+                        <li><code class="code-inline">{port}</code> → Your port (80, 8000, 9000, or custom)</li>
+                        <li><code class="code-inline">&lt;Access-Code&gt;</code> → Your access code (e.g., <code class="code-inline">cSbuFLhp</code>)</li>
+                        <li><code class="code-inline">&lt;API-KEY&gt;</code> → Your API key</li>
+                        <li><code class="code-inline">ACTION</code> → API action name (e.g., <code class="code-inline">get_lines</code>)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Authentication Setup -->
+            <div class="section">
+                <h3 class="section-title">
+                    <span class="section-icon">🔐</span>
+                    Authentication Setup
+                </h3>
+                <div class="section-content">
+                    <p><strong>Required:</strong></p>
+                    <ol style="padding-left: 1.5rem;">
+                        <li>XUI.ONE panel installed (v1.5.5+)</li>
+                        <li>Admin API access code created</li>
+                        <li>API key generated from profile</li>
+                    </ol>
+                    <br>
+                    <p><strong>Quick Setup:</strong></p>
+                    <ol style="padding-left: 1.5rem;">
+                        <li>Panel → Management → Access Control → Access Codes</li>
+                        <li>Create "Admin API" access code</li>
+                        <li>Profile → Generate API Key</li>
+                        <li>Test: <code class="code-inline">curl "http://your-server.com/&lt;Access-Code&gt;/?api_key=&lt;API-KEY&gt;&action=user_info"</code></li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Request Methods -->
+            <div class="section">
+                <h3 class="section-title">
+                    <span class="section-icon">📝</span>
+                    Request Methods
+                </h3>
+                <div class="section-content">
+                    <p><strong>GET</strong> - Query data</p>
+                    <div class="code-block">
+/?api_key=&lt;API-KEY&gt;&action=get_lines
+                    </div>
+                    <p><strong>POST</strong> - Create/update data</p>
+                    <div class="code-block">
+curl -X POST ".../?api_key=&lt;API-KEY&gt;&action=create_line" -d "username=test"
+                    </div>
+                </div>
+            </div>
+
+            <!-- Response Format -->
+            <div class="section">
+                <h3 class="section-title">
+                    <span class="section-icon">✅</span>
+                    Response Format
+                </h3>
+                <div class="section-content">
+                    <p><strong>Success:</strong></p>
+                    <div class="code-block">
+{
+  "status": "STATUS_SUCCESS",
+  "data": { ... }
+}
+                    </div>
+                    <p><strong>Error:</strong></p>
+                    <div class="code-block">
+{
+  "status": "STATUS_FAILURE",
+  "error": "Error description"
+}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="section">
+                <h3 class="section-title">
+                    <span class="section-icon">🚀</span>
+                    Quick Links
+                </h3>
+                <div class="quick-links">
+                    <div class="quick-link-card" onclick="switchTab('swagger')">
+                        <h3>🔧 Interactive API</h3>
+                        <p>Try the API directly in Swagger UI with live testing</p>
+                    </div>
+                    <a href="https://github.com/worldofiptvcom/xui-one-api-docs" target="_blank" style="text-decoration: none; color: inherit;">
+                        <div class="quick-link-card">
+                            <h3>💾 GitHub Repository</h3>
+                            <p>View source code and contribute to the project</p>
+                        </div>
+                    </a>
+                    <a href="https://github.com/worldofiptvcom/xui-one-api-docs/blob/main/docs/getting-started.md" target="_blank" style="text-decoration: none; color: inherit;">
+                        <div class="quick-link-card">
+                            <h3>📖 Getting Started</h3>
+                            <p>Detailed setup guide and tutorials</p>
+                        </div>
+                    </a>
+                    <a href="https://github.com/worldofiptvcom/xui-one-api-docs/tree/main/docs/categories" target="_blank" style="text-decoration: none; color: inherit;">
+                        <div class="quick-link-card">
+                            <h3>📚 Code Examples</h3>
+                            <p>Python, PHP, JavaScript examples for all endpoints</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="btn-group">
+                <button class="btn" onclick="switchTab('swagger')">Start Testing API →</button>
+                <a href="https://github.com/worldofiptvcom/xui-one-api-docs" target="_blank" class="btn" style="background: #27ae60;">View on GitHub</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Swagger API Section -->
+    <div id="swagger-section" class="content-section">
+        <div class="swagger-container">
+            <div id="swagger-ui"></div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui-bundle.js"></script>
+    <script src="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui-standalone-preset.js"></script>
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        
+        document.documentElement.setAttribute('data-theme', currentTheme);
+        if (currentTheme === 'dark') {
+            themeToggle.checked = true;
+        }
+
+        themeToggle.addEventListener('change', function() {
+            const theme = this.checked ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
         });
-      } catch (error) {
-        console.error('❌ Error initializing Swagger UI:', error);
-        document.getElementById('swagger-ui').innerHTML = 
-          '<div style="padding: 40px; text-align: center; color: #d32f2f;">' +
-          '<h2>⚠️ Failed to Initialize Swagger UI</h2>' +
-          '<p>Error: ' + error.message + '</p>' +
-          '<p><a href="openapi.yaml" target="_blank">View raw OpenAPI spec</a></p>' +
-          '</div>';
-      }
-    };
-  </script>
+
+        // Tab Switching
+        function switchTab(tabName) {
+            // Update tab buttons
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.closest('.nav-tab').classList.add('active');
+
+            // Update content sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(tabName + '-section').classList.add('active');
+
+            // Initialize Swagger UI if not already initialized
+            if (tabName === 'swagger' && !window.swaggerInitialized) {
+                initSwagger();
+            }
+        }
+
+        // Initialize Swagger UI
+        let swaggerInitialized = false;
+        function initSwagger() {
+            window.ui = SwaggerUIBundle({
+                url: "./openapi.yaml",
+                dom_id: '#swagger-ui',
+                deepLinking: true,
+                presets: [
+                    SwaggerUIBundle.presets.apis,
+                    SwaggerUIStandalonePreset
+                ],
+                plugins: [
+                    SwaggerUIBundle.plugins.DownloadUrl
+                ],
+                layout: "StandaloneLayout",
+                defaultModelsExpandDepth: 1,
+                defaultModelExpandDepth: 1,
+                docExpansion: "list",
+                filter: true,
+                showExtensions: true,
+                showCommonExtensions: true,
+                tryItOutEnabled: true
+            });
+            window.swaggerInitialized = true;
+        }
+
+        // Initialize Swagger on first swagger tab click or if URL has #swagger
+        if (window.location.hash === '#swagger') {
+            switchTab('swagger');
+        }
+    </script>
 </body>
 </html>
