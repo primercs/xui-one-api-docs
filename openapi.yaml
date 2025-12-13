@@ -1,14 +1,7 @@
 openapi: 3.0.3
 info:
   title: XUI.ONE Admin API
-  description: Comprehensive API documentation for XUI.ONE IPTV Panel Administration
   version: 1.5.13
-  contact:
-    name: XUI.ONE API Support
-    url: https://xui.one
-  license:
-    name: Proprietary
-    url: https://xui.one
 
 servers:
   - url: '{protocol}://{server}:{port}/{accessCode}'
