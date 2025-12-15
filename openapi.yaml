@@ -3947,21 +3947,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SuccessResponse'
-                https_port:
-                  type: integer
-                  description: New HTTPS port
-                  example: 9443
-                rtmp_port:
-                  type: integer
-                  description: New RTMP port
-                  example: 1935
-      responses:
-        '200':
-          description: Server updated successfully
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SuccessResponse'
 
   /?action=delete_server:
     post:
