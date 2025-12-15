@@ -1359,6 +1359,13 @@ paths:
                               type: string
                             member_id:
                               type: string
+                            last_activity:
+                              type: string
+                              nullable: true
+                            last_activity_array:
+                              type: string
+                              nullable: true
+                              description: JSON object string with last activity details
                             username:
                               type: string
                             password:
@@ -1386,55 +1393,64 @@ paths:
                               type: integer
                             owner_name:
                               type: string
-                            last_activity:
-                              type: string
-                              nullable: true
-                            last_active:
-                              type: integer
-                              nullable: true
                             stream_display_name:
                               type: string
                               nullable: true
                             stream_id:
                               type: integer
                               nullable: true
-                        example:
-                          - id: "1"
-                            member_id: "1"
-                            username: "jhgsdf22"
-                            password: "EfuBzGCmeg"
-                            exp_date: null
-                            admin_enabled: "1"
-                            is_restreamer: "1"
-                            enabled: "1"
-                            admin_notes: null
-                            reseller_notes: "VIP Package - 430 EUR/month"
-                            max_connections: "180"
-                            is_trial: "0"
-                            active_connections: 1
-                            owner_name: "redhat@woi"
-                            last_activity: "469747"
-                            last_active: 1765799712
-                            stream_display_name: "Adult Channel 2"
-                            stream_id: 201
-                          - id: "2"
-                            member_id: "1"
-                            username: "zzzzzzzz"
-                            password: "zzzzzzzz1"
-                            exp_date: null
-                            admin_enabled: "1"
-                            is_restreamer: "0"
-                            enabled: "1"
-                            admin_notes: null
-                            reseller_notes: null
-                            max_connections: "5"
-                            is_trial: "0"
-                            active_connections: 0
-                            owner_name: "redhat@woi"
-                            last_activity: null
-                            last_active: null
-                            stream_display_name: null
-                            stream_id: null
+                            last_active:
+                              type: integer
+                              nullable: true
+                      recordsTotal:
+                        type: string
+                        description: Total number of records
+                      recordsFiltered:
+                        type: string
+                        description: Number of filtered records
+                    example:
+                      status: "STATUS_SUCCESS"
+                      data:
+                        - id: "1"
+                          member_id: "1"
+                          last_activity: "469856"
+                          last_activity_array: "{\"date_end\":1765802281,\"stream_id\":206}"
+                          username: "jhgsdf22"
+                          password: "EfuBzGCmeg"
+                          exp_date: null
+                          admin_enabled: "1"
+                          is_restreamer: "1"
+                          enabled: "1"
+                          admin_notes: null
+                          reseller_notes: "WOI User: jhgsdf22\nSkyFull - 250 Euro/month\nAdult - 180 Euro/month\n\n430 Euro/month"
+                          max_connections: "180"
+                          is_trial: "0"
+                          active_connections: 0
+                          owner_name: "redhat@woi"
+                          stream_display_name: null
+                          stream_id: 206
+                          last_active: 1765802281
+                        - id: "8"
+                          member_id: "1"
+                          last_activity: null
+                          last_activity_array: null
+                          username: "test"
+                          password: "helloworld"
+                          exp_date: null
+                          admin_enabled: "1"
+                          is_restreamer: "0"
+                          enabled: "1"
+                          admin_notes: null
+                          reseller_notes: null
+                          max_connections: "1"
+                          is_trial: "0"
+                          active_connections: 0
+                          owner_name: "redhat@woi"
+                          stream_display_name: null
+                          stream_id: null
+                          last_active: null
+                      recordsTotal: "4"
+                      recordsFiltered: "4"
 
   /?action=create_line:
     post:
