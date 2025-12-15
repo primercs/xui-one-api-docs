@@ -2091,6 +2091,54 @@ paths:
               schema:
                 $ref: '#/components/schemas/SuccessResponse'
 
+  /?action=get_lines:
+    get:
+      summary: Get All Lines
+      description: |
+        Retrieve a list of all M3U subscription lines.
+        
+        **Example:**
+        ```bash
+        curl "http://your-server.com/cSbuFLhp/?api_key=API-KEY&action=get_lines"
+        ```
+      tags: [Line API]
+      operationId: getLines
+      parameters:
+        - $ref: '#/components/parameters/ApiKey'
+        - name: action
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [get_lines]
+      responses:
+        '200':
+          description: List of lines retrieved
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            username:
+                              type: string
+                            password:
+                              type: string
+                            exp_date:
+                              type: string
+                            max_connections:
+                              type: integer
+                            is_trial:
+                              type: integer
+
   /?action=create_line:
     post:
       summary: Create M3U Line
@@ -2851,6 +2899,41 @@ paths:
                             type: array
                             items:
                               type: integer
+
+  /?action=get_mags:
+    get:
+      summary: Get All MAG Devices
+      description: |
+        Retrieve a list of all MAG devices in the system.
+        
+        **Example:**
+        ```bash
+        curl "http://your-server.com/cSbuFLhp/?api_key=API-KEY&action=get_mags"
+        ```
+      tags: [MAG API]
+      operationId: getMags
+      parameters:
+        - $ref: '#/components/parameters/ApiKey'
+        - name: action
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [get_mags]
+      responses:
+        '200':
+          description: List of MAG devices retrieved
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: array
+                        items:
+                          type: object
 
 
   # ==================================================================================
