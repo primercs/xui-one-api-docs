@@ -87,14 +87,12 @@ security:
 tags:
   - name: Authentication
     description: Authentication and authorization operations
-  - name: GET INFO
-    description: Query and retrieve information
   - name: Logs & Events
     description: Activity logs, connections, and monitoring
   - name: Line API
-    description: Subscription line management
+    description: M3U subscription line management
   - name: User API
-    description: User account management
+    description: User account management (admins, resellers, sub-accounts)
   - name: MAG API
     description: MAG device management
   - name: Enigma API
@@ -407,7 +405,7 @@ paths:
           schema:
             type: string
             enum: [client_logs]
-        - name: line_id
+        - name: id
           in: query
           description: Filter by specific line ID
           schema:
@@ -1097,7 +1095,7 @@ paths:
         
         **Example:**
         ```bash
-        curl "http://your-server.com/cSbuFLhp/?api_key=API-KEY&action=get_line&line_id=123"
+        curl "http://your-server.com/cSbuFLhp/?api_key=API-KEY&action=get_line&id=123"
         ```
       tags: [Line API]
       operationId: getLine
@@ -1109,7 +1107,7 @@ paths:
           schema:
             type: string
             enum: [get_line]
-        - name: line_id
+        - name: id
           in: query
           required: true
           schema:
@@ -1258,7 +1256,7 @@ paths:
         **Example:**
         ```bash
         curl -X POST "http://your-server.com/cSbuFLhp/?api_key=API-KEY&action=edit_line" \
-          -d "line_id=123" \
+          -d "id=123" \
           -d "exp_date=2026-06-30" \
           -d "max_connections=2"
         ```
@@ -1278,9 +1276,9 @@ paths:
           application/x-www-form-urlencoded:
             schema:
               type: object
-              required: [line_id]
+              required: [id]
               properties:
-                line_id:
+                id:
                   type: integer
                   description: Line ID to edit
                   example: 123
@@ -1328,7 +1326,7 @@ paths:
         **Example:**
         ```bash
         curl -X POST "http://your-server.com/cSbuFLhp/?api_key=API-KEY&action=delete_line" \
-          -d "line_id=123"
+          -d "id=123"
         ```
       tags: [Line API]
       operationId: deleteLine
@@ -1346,9 +1344,9 @@ paths:
           application/x-www-form-urlencoded:
             schema:
               type: object
-              required: [line_id]
+              required: [id]
               properties:
-                line_id:
+                id:
                   type: integer
                   description: Line ID to delete
                   example: 123
@@ -1380,9 +1378,9 @@ paths:
           application/x-www-form-urlencoded:
             schema:
               type: object
-              required: [line_id]
+              required: [id]
               properties:
-                line_id:
+                id:
                   type: integer
                   example: 123
       responses:
@@ -1413,9 +1411,9 @@ paths:
           application/x-www-form-urlencoded:
             schema:
               type: object
-              required: [line_id]
+              required: [id]
               properties:
-                line_id:
+                id:
                   type: integer
                   example: 123
       responses:
@@ -1446,9 +1444,9 @@ paths:
           application/x-www-form-urlencoded:
             schema:
               type: object
-              required: [line_id]
+              required: [id]
               properties:
-                line_id:
+                id:
                   type: integer
                   example: 123
       responses:
@@ -1479,9 +1477,9 @@ paths:
           application/x-www-form-urlencoded:
             schema:
               type: object
-              required: [line_id]
+              required: [id]
               properties:
-                line_id:
+                id:
                   type: integer
                   example: 123
       responses:
@@ -1870,7 +1868,7 @@ paths:
                       data:
                         type: object
                         properties:
-                          line_id:
+                          id:
                             type: integer
                             description: New line ID
                           username:
