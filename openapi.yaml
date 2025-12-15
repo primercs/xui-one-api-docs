@@ -823,13 +823,81 @@ paths:
                   type: string
                   description: Admin notes
                   example: "Premium reseller"
+                credits:
+                  type: integer
+                  description: Initial credits (for resellers)
+                  default: 0
+                  example: 100
+                reseller_dns:
+                  type: string
+                  description: Custom DNS for reseller panel
+                  example: "panel.reseller.com"
+                owner_id:
+                  type: integer
+                  description: Parent reseller ID (for sub-resellers)
+                  example: 1
+                hue:
+                  type: string
+                  description: UI color theme hue
+                  example: "210"
+                theme:
+                  type: string
+                  description: Theme ID
+                  enum: ["0", "1", "2"]
+                  default: "0"
+                  example: "0"
+                timezone:
+                  type: string
+                  description: User timezone
+                  example: "Europe/Istanbul"
       responses:
         '200':
           description: User created successfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SuccessResponse'
+                allOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                          username:
+                            type: string
+                          email:
+                            type: string
+                          member_group_id:
+                            type: string
+                          credits:
+                            type: string
+                          status:
+                            type: string
+                          reseller_dns:
+                            type: string
+                            nullable: true
+                          owner_id:
+                            type: string
+                          hue:
+                            type: string
+                          theme:
+                            type: string
+                          timezone:
+                            type: string
+                        example:
+                          id: "5"
+                          username: "newreseller"
+                          email: "reseller@example.com"
+                          member_group_id: "2"
+                          credits: "100"
+                          status: "1"
+                          reseller_dns: null
+                          owner_id: "1"
+                          hue: ""
+                          theme: "0"
+                          timezone: ""
 
   /?action=edit_user:
     post:
@@ -1158,17 +1226,85 @@ paths:
                           type: object
                           properties:
                             id:
-                              type: integer
+                              type: string
+                            member_id:
+                              type: string
                             username:
                               type: string
                             password:
                               type: string
                             exp_date:
                               type: string
+                              nullable: true
+                            admin_enabled:
+                              type: string
+                            is_restreamer:
+                              type: string
+                            enabled:
+                              type: string
+                            admin_notes:
+                              type: string
+                              nullable: true
+                            reseller_notes:
+                              type: string
+                              nullable: true
                             max_connections:
-                              type: integer
+                              type: string
                             is_trial:
+                              type: string
+                            active_connections:
                               type: integer
+                            owner_name:
+                              type: string
+                            last_activity:
+                              type: string
+                              nullable: true
+                            last_active:
+                              type: integer
+                              nullable: true
+                            stream_display_name:
+                              type: string
+                              nullable: true
+                            stream_id:
+                              type: integer
+                              nullable: true
+                        example:
+                          - id: "1"
+                            member_id: "1"
+                            username: "jhgsdf22"
+                            password: "EfuBzGCmeg"
+                            exp_date: null
+                            admin_enabled: "1"
+                            is_restreamer: "1"
+                            enabled: "1"
+                            admin_notes: null
+                            reseller_notes: "VIP Package - 430 EUR/month"
+                            max_connections: "180"
+                            is_trial: "0"
+                            active_connections: 1
+                            owner_name: "redhat@woi"
+                            last_activity: "469747"
+                            last_active: 1765799712
+                            stream_display_name: "Adult Channel 2"
+                            stream_id: 201
+                          - id: "2"
+                            member_id: "1"
+                            username: "zzzzzzzz"
+                            password: "zzzzzzzz1"
+                            exp_date: null
+                            admin_enabled: "1"
+                            is_restreamer: "0"
+                            enabled: "1"
+                            admin_notes: null
+                            reseller_notes: null
+                            max_connections: "5"
+                            is_trial: "0"
+                            active_connections: 0
+                            owner_name: "redhat@woi"
+                            last_activity: null
+                            last_active: null
+                            stream_display_name: null
+                            stream_id: null
 
   /?action=create_line:
     post:
@@ -1239,13 +1375,83 @@ paths:
                   type: string
                   description: Comma-separated list of allowed IPs
                   example: "192.168.1.100,10.0.0.1"
+                member_id:
+                  type: integer
+                  description: Owner/Reseller ID (defaults to current user)
+                  example: 1
+                is_restreamer:
+                  type: integer
+                  description: Restreamer flag (0 or 1)
+                  enum: [0, 1]
+                  default: 0
+                  example: 0
+                reseller_notes:
+                  type: string
+                  description: Reseller notes (visible to reseller)
+                  example: "VIP Package - 50 EUR/month"
+                enabled:
+                  type: integer
+                  description: Enable/disable line (0 or 1)
+                  enum: [0, 1]
+                  default: 1
+                  example: 1
+                forced_country:
+                  type: string
+                  description: Force country code (e.g., US, UK, DE)
+                  example: "US"
       responses:
         '200':
           description: Line created successfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SuccessResponse'
+                allOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                          username:
+                            type: string
+                          password:
+                            type: string
+                          exp_date:
+                            type: string
+                            nullable: true
+                          max_connections:
+                            type: string
+                          is_trial:
+                            type: string
+                          member_id:
+                            type: string
+                          is_restreamer:
+                            type: string
+                          enabled:
+                            type: string
+                          admin_enabled:
+                            type: string
+                          admin_notes:
+                            type: string
+                            nullable: true
+                          reseller_notes:
+                            type: string
+                            nullable: true
+                        example:
+                          id: "8"
+                          username: "customer123"
+                          password: "pass123"
+                          exp_date: "2025-12-31"
+                          max_connections: "1"
+                          is_trial: "0"
+                          member_id: "1"
+                          is_restreamer: "0"
+                          enabled: "1"
+                          admin_enabled: "1"
+                          admin_notes: null
+                          reseller_notes: null
 
   /?action=edit_line:
     post:
