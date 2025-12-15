@@ -2,6 +2,64 @@ openapi: 3.0.3
 info:
   title: XUI.ONE Admin API
   version: 1.5.13
+  description: |
+    Complete API documentation for XUI.ONE IPTV panel administration.
+    
+    ## 🚀 Quick Start
+    
+    ### 1. Configure Your Server
+    At the top of this page, click **"Servers"** dropdown and enter your details:
+    - **protocol**: `http` or `https`
+    - **server**: Your server IP (e.g., `144.76.200.209`)
+    - **port**: Your API port (e.g., `80` for HTTP, `443` for HTTPS)
+    - **accessCode**: Your API access code (e.g., `cSbuFLhp`)
+    
+    ### 2. Authorize
+    Click the **"Authorize" 🔓** button (top right) and enter your API key.
+    
+    ### 3. Try Endpoints
+    - Click any endpoint to expand it
+    - Click **"Try it out"** button
+    - Fill in required parameters
+    - Click **"Execute"**
+    - See your actual request and response!
+    
+    ## 💡 How to Use Interactive Examples
+    
+    **Don't copy static examples from descriptions!** Instead:
+    
+    1. ✅ Use the **"Try it out"** feature - it generates real requests with YOUR values
+    2. ✅ After clicking "Execute", you'll see:
+       - **Request URL** - your actual API call with real values
+       - **cURL command** - copy-paste ready with your credentials
+       - **Response** - actual data from your server
+    
+    ## 📋 API Pattern
+    
+    All requests follow this pattern:
+    ```
+    {protocol}://{server}:{port}/{accessCode}/?api_key={API_KEY}&action={ACTION}&param1=value1
+    ```
+    
+    **Example with your configured values:**
+    ```
+    http://144.76.200.209:80/cSbuFLhp/?api_key=YOUR-API-KEY&action=user_info
+    ```
+    
+    ## 🔑 Authentication
+    
+    - **API Key**: Required for all requests (add `?api_key=YOUR-KEY`)
+    - **Generate API Key**: In XUI.ONE admin panel → Profile → API Settings
+    
+    ## 📖 Response Format
+    
+    All endpoints return JSON:
+    ```json
+    {
+      "status": "STATUS_SUCCESS",
+      "data": { ... }
+    }
+    ```
 
 servers:
   - url: '{protocol}://{server}:{port}/{accessCode}'
