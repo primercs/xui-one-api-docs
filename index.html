@@ -788,9 +788,33 @@
             color: #95a5a6;
         }
 
-        /* Span Tag - All operations */
-        [data-theme="dark"] [id^="operations-"] .opblock-summary-path span {
-            color: #3498db;
+        /* Span Tag - Method-specific colors */
+        [data-theme="dark"] .opblock-get .opblock-summary-path span {
+            color: rgb(74, 176, 244); /* GET - blue */
+        }
+
+        [data-theme="dark"] .opblock-post .opblock-summary-path span {
+            color: rgb(141, 199, 111); /* POST - green */
+        }
+
+        [data-theme="dark"] .opblock-put .opblock-summary-path span {
+            color: rgb(189, 135, 86); /* PUT - orange */
+        }
+
+        [data-theme="dark"] .opblock-delete .opblock-summary-path span {
+            color: rgb(237, 99, 113); /* DELETE - red */
+        }
+
+        [data-theme="dark"] .opblock-head .opblock-summary-path span {
+            color: rgb(217, 115, 234); /* HEAD - purple */
+        }
+
+        [data-theme="dark"] .opblock-options .opblock-summary-path span {
+            color: rgb(210, 175, 60); /* OPTIONS - yellow */
+        }
+
+        [data-theme="dark"] .opblock-patch .opblock-summary-path span {
+            color: rgb(113, 128, 147); /* PATCH - gray */
         }
 
 
